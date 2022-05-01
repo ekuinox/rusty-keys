@@ -134,16 +134,20 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
     };
     let mut modifier = 0;
 
+    const fn get_keycode(c: u8) -> u8 {
+        c - b'a' + 0x04
+    }
+
     let layer = matrix[1][2];
     if layer {
         if matrix[0][0] {
-            push_key(0x24); // 7
+            push_key(get_keycode(b'e'));
         }
         if matrix[0][1] {
-            push_key(0x25); // 8
+            push_key(get_keycode(b'o'));
         }
         if matrix[0][2] {
-            push_key(0x26); // 9
+            push_key(get_keycode(b'u'));
         }
         if matrix[1][0] {
             push_key(0x2a); // Backspace
@@ -152,20 +156,20 @@ fn build_report(matrix: &StateMatrix) -> KeyboardReport {
             push_key(0x28); // Enter
         }
     } else {
+        if matrix[0][0] {
+            push_key(get_keycode(b'r'));
+        }
+        if matrix[0][1] {
+            push_key(get_keycode(b'm'));
+        }
         if matrix[0][2] {
             modifier = 0x02; // LEFT SHIFFT
         }
-        if matrix[0][0] {
-            push_key(0x0e); // K
-        }
-        if matrix[0][1] {
-            push_key(0x12); // O
-        }
         if matrix[1][0] {
-            push_key(0x05); // B
+            push_key(get_keycode(b'k'));
         }
         if matrix[1][1] {
-            push_key(0x04); // A
+            push_key(get_keycode(b's'));
         }
     }
 
